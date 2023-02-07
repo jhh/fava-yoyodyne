@@ -7,9 +7,8 @@ nixpkgs.lib.nixosSystem {
   modules = [
     self.nixosModules.default
     ({ ... }: {
-      j3ff.services.fava-gencon = {
-        enable = true;
-      };
+      j3ff.services.fava-gencon.enable = true;
+      services.tailscale.enable = true;
       system.stateVersion = "23.05";
     })
   ];

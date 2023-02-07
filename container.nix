@@ -7,9 +7,6 @@ nixpkgs.lib.nixosSystem {
   modules = [
     self.nixosModules.default
     ({ ... }: {
-      boot.isContainer = true;
-      networking.useDHCP = false;
-      networking.firewall.enable = false;
       j3ff.services.fava-gencon = {
         enable = true;
       };

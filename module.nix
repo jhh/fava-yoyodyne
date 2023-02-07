@@ -13,9 +13,17 @@ in
 
       preStart = ''
         LEDGER="$STATE_DIRECTORY/ledger.beancount"
+        DOCS="$STATE_DIRECTORY/docs"
         if [[ ! -f $LEDGER ]]; then
           echo $LEDGER does not exist, creating...
-          touch $LEDGER
+
+          cat <<- EOF > $LEDGER
+        option "title" "Gencon Expenses"
+        option "operating_currency" "USD"
+        option "documents" "$DOCS"
+        EOF
+
+          mkdir $DOCS
         else
           echo $LEDGER already exists
         fi

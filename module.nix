@@ -48,12 +48,13 @@ in
       recommendedGzipSettings = true;
 
 
-      virtualHosts."gencon.j3ff.io" = {
+      virtualHosts."fava.j3ff.io" = {
         locations = {
           "/" = {
             proxyPass = "http://127.0.0.1:5000";
           };
         };
+        serverAliases = [ "gencon.j3ff.io" ];
       };
     };
   };

@@ -1,14 +1,14 @@
 self: { config, lib, pkgs, ... }:
 let
-  cfg = config.j3ff.services.fava-gencon;
+  cfg = config.j3ff.services.fava-yoydyne;
 in
 {
-  options.j3ff.services.fava-gencon = {
-    enable = lib.mkEnableOption "Enable the Gencon Fava Beancount service";
+  options.j3ff.services.fava-yoydyne = {
+    enable = lib.mkEnableOption "Enable the Yoydyne Fava Beancount service";
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.services."fava-gencon" = {
+    systemd.services."fava-yoydyne" = {
       wantedBy = [ "multi-user.target" ];
 
       preStart = ''
@@ -18,7 +18,7 @@ in
           echo $LEDGER does not exist, creating...
 
           cat <<- EOF > $LEDGER
-        option "title" "Gencon Expenses"
+        option "title" "Yoydyne Expenses"
         option "operating_currency" "USD"
         option "documents" "$DOCS"
         EOF
@@ -36,7 +36,7 @@ in
 
       serviceConfig = {
         DynamicUser = true;
-        StateDirectory = "fava-gencon";
+        StateDirectory = "fava-yoydyne";
         Restart = "on-failure";
       };
     };
@@ -54,7 +54,7 @@ in
             proxyPass = "http://127.0.0.1:5000";
           };
         };
-        serverAliases = [ "gencon.j3ff.io" ];
+        serverAliases = [ "yoydyne.j3ff.io" ];
       };
     };
   };

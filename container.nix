@@ -7,7 +7,7 @@ nixpkgs.lib.nixosSystem {
   modules = [
     self.nixosModules.default
     ({ ... }: {
-      j3ff.services.fava-gencon.enable = true;
+      j3ff.services.fava-yoyodyne.enable = true;
       services.sshd.enable = true;
       networking.firewall.allowedTCPPorts = [ 80 ];
       services.openssh.permitRootLogin = "yes";

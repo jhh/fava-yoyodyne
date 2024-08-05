@@ -5,6 +5,12 @@ in
 {
   options.j3ff.services.fava-yoyodyne = {
     enable = lib.mkEnableOption "Enable the Yoydyne Fava Beancount service";
+
+    port = lib.mkOption {
+      description = "Port the Fava server listens on.";
+      type = lib.types.port;
+      default = 5000;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -31,7 +37,7 @@ in
 
       script = ''
         LEDGER="$STATE_DIRECTORY/ledger.beancount"
-        ${pkgs.fava}/bin/fava $LEDGER
+        ${pkgs.fava}/bin/fava --port ${toString cfg.port} $LEDGER
       '';
 
       serviceConfig = {
@@ -51,7 +57,7 @@ in
       virtualHosts."fava.j3ff.io" = {
         locations = {
           "/" = {
-            proxyPass = "http://127.0.0.1:5000";
+            proxyPass = "http://127.0.0.1:${toString cfg.port}";
           };
         };
         serverAliases = [ "yoyodyne.j3ff.io" ];
